@@ -1,26 +1,39 @@
 import pygame
+#WELCOME
+#PROPERTY OF APE STUDIOS(2023)
+#no its not
 
-
-
-
+#DO NOT TOUCH
 pygame.init()
 screen_size = (1920,1810)
 screen = pygame.display.set_mode(screen_size) 
 running = True
 controls = pygame.transform.scale(pygame.image.load("assets/controls.png"),(2000,1000))
+#you can touch now
 
+#the studio variable
+#basically means if 
+#its gonna show the
+#studio intro.
+#i turned it to false
+#so that it cuts straight to the game
 studio = False
-apes = ["/home/max/stray/assets/studio/1.png","/home/max/stray/assets/studio/2.png","/home/max/stray/assets/studio/3.png","/home/max/stray/assets/studio/3.png","/home/max/stray/assets/studio/4.png","/home/max/stray/assets/studio/5.png"]
+#list of frames in the studio intro
+apes = ["assets/studio/1.png","assets/studio/2.png","assets/studio/3.png","assets/studio/3.png","assets/studio/4.png","assets/studio/5.png"]
+#fills the screen to make sure the background doesnt show in the intro
 screen.fill((26,19,22))
 counter = 0
 
+#just loads assets(load your assets here)
+#titlescreen is like studio var
 titlescreen = False
 titletext = pygame.transform.scale(pygame.image.load("assets/titlescreen/text.png"),(1000,100))
 background = pygame.transform.scale(pygame.image.load("assets/titlescreen/background.png"),(2000,1000))
 pplleeaasseeee = pygame.transform.scale(pygame.image.load("assets/titlescreen/enter.png"),(400,120))
+#like the studio var but not
 game = True
 you = pygame.transform.scale(pygame.image.load("assets/you/normal_u.png"),(225,425))
-location = "bedroom1"
+#DECLARE YOUR VARIABLES HERE
 stage = -1
 x = 1500
 y = 340
@@ -35,19 +48,24 @@ r_step_counter = 0
 l_step_counter = 0
 bedroom = pygame.transform.scale(pygame.image.load("assets/house/bedroom1.png"),(2000,1000))
 stairs = pygame.transform.scale(pygame.image.load("assets/house/stairs.png"),(2000,1000))
-living = pygame.transform.scale(pygame.image.load("/home/max/Downloads/pixil-frame-0(1).png"),(3000,1000))
+living = pygame.transform.scale(pygame.image.load("assets/house/living1.png"),(3000,1000))
+#all speech bubble things
 speech = ["assets/parents/mom.png",
           "assets/you/sleep.png",
           "assets/you/sound.png"]
 
+#the talk function. thats how you talk
 def talk():
     global talking
     screen.blit(pygame.transform.scale(pygame.image.load(speech[talking]),(800,400)),(575,550))
 
+#sets fps
 clock = pygame.time.Clock()
 clock.tick(15)
 
+#actual game code in the loop
 while running:
+    #key presses and events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -83,7 +101,7 @@ while running:
                     right = False
                 if event.key == pygame.K_DOWN and canGoDown:
                     down = False
-
+    #for walk animation
     if r_step_counter != 0:
         r_step_counter += 1
         if r_step_counter == 2:
@@ -93,7 +111,7 @@ while running:
         elif r_step_counter == 40:
             you = pygame.transform.scale(pygame.image.load(walking[0]),(225,425))
             r_step_counter = 1
-
+    #another walk anim
     if l_step_counter != 0:
         l_step_counter += 1
         if l_step_counter == 2:
@@ -103,9 +121,9 @@ while running:
         elif l_step_counter == 40:
             you = pygame.transform.flip(pygame.transform.scale(pygame.image.load(walking[0]),(225,425)), True, False)
             l_step_counter = 1
-    #fuck DRY
+    #fuck DRY(Dont Repeat Yourself)
 
-
+    #changes x and y coord for walking
     if right == True:
         x += 7
     elif left == True:
@@ -115,6 +133,7 @@ while running:
     if down == True:
         y += 7
 
+    #for studio
     if studio == True:
         counter += 5
         if counter == 5:
@@ -134,13 +153,13 @@ while running:
             studio = False
             titlescreen = True
 
-
+    #titlescreen
     if titlescreen == True:
         screen.blit(background, (-80,0))
         screen.blit(titletext, (500,250))
         screen.blit(pplleeaasseeee, (800,600))
 
-
+    #the game is divided in "stages". each stage is separated by dialogue and rooms
     elif game == True:
         if stage == -1:
             counter += 1
@@ -151,7 +170,7 @@ while running:
         else:
             if stage == 0:
                 talking = 0
-                screen.blit(living,(-40,0))
+                screen.blit(bedroom,(-40,0))
                 screen.blit(you,(x,y))
                 dialogue = True
                 talk()
