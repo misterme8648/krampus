@@ -42,6 +42,7 @@ talking = -1
 right = False
 left = False
 down = False
+up = False
 canGoDown = False
 walking = ["assets/you/walk1.png","assets/you/walk2.png"]
 r_step_counter = 0
@@ -91,6 +92,8 @@ while running:
                     r_step_counter += 1
                 if event.key == pygame.K_DOWN and canGoDown:
                     down = True
+                if event.key == pygame.K_UP and canGoDown:
+                    up = True
 
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_a or event.key == pygame.K_LEFT:
@@ -101,6 +104,8 @@ while running:
                     right = False
                 if event.key == pygame.K_DOWN and canGoDown:
                     down = False
+                if event.key == pygame.K_UP and canGoDown:
+                    down = True
     #for walk animation
     if r_step_counter != 0:
         r_step_counter += 1
@@ -132,6 +137,8 @@ while running:
         you = pygame.transform.scale(pygame.image.load("assets/you/normal_u.png"),(225,425))
     if down == True:
         y += 7
+    elif up == True:
+        y -= 7
 
     #for studio
     if studio == True:
@@ -163,7 +170,7 @@ while running:
     elif game == True:
         if stage == -1:
             counter += 1
-            if counter != 1: #200
+            if counter != 1: #TODO: turn to 200 when dev is up
                 screen.blit(controls,(-80,0))
             else:
                 stage += 1
@@ -207,12 +214,15 @@ while running:
             elif stage == 5:
                 if x > 116 and x < 438:
                     canGoDown = True
-                if y == None:
-                    pass #TODO: add way to get to stage 6
+                else:
+                    canGoDown = False
+                if y > 600:
+                    stage += 1
+                    canGoDown = False
                 screen.blit(stairs,(0,0))
                 screen.blit(you,(x,y))
             elif stage == 6:
-                #TODO: add stage 6
-                pass
+                screen.blit(living, (0,5))
+                screen.blit(you,(x,500))
 
     pygame.display.flip()
