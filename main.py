@@ -3,6 +3,9 @@ import pygame
 #PROPERTY OF APE STUDIOS(2023)
 #no its not
 
+
+#TODO: turn the variables back when finished
+
 #DO NOT TOUCH
 pygame.init()
 screen_size = (1920,1810)
@@ -17,7 +20,7 @@ controls = pygame.transform.scale(pygame.image.load("assets/controls.png"),(2000
 #studio intro.
 #i turned it to false
 #so that it cuts straight to the game
-studio = False
+studio = False #turn to true when done
 #list of frames in the studio intro
 apes = ["assets/studio/1.png","assets/studio/2.png","assets/studio/3.png","assets/studio/3.png","assets/studio/4.png","assets/studio/5.png"]
 #fills the screen to make sure the background doesnt show in the intro
@@ -30,11 +33,13 @@ titlescreen = False
 titletext = pygame.transform.scale(pygame.image.load("assets/titlescreen/text.png"),(1000,100))
 background = pygame.transform.scale(pygame.image.load("assets/titlescreen/background.png"),(2000,1000))
 pplleeaasseeee = pygame.transform.scale(pygame.image.load("assets/titlescreen/enter.png"),(400,120))
+
+
 #like the studio var but not
-game = True
+game = True #turn to false when finished
 you = pygame.transform.scale(pygame.image.load("assets/you/normal_u.png"),(225,425))
 #DECLARE YOUR VARIABLES HERE
-stage = -1
+stage = 6 #turn to -1 when game is done
 x = 1500
 y = 340
 dialogue = False
@@ -62,7 +67,7 @@ def talk():
 
 #sets fps
 clock = pygame.time.Clock()
-clock.tick(15)
+clock.tick(30)
 
 #actual game code in the loop
 while running:
@@ -170,7 +175,7 @@ while running:
     elif game == True:
         if stage == -1:
             counter += 1
-            if counter != 1: #TODO: turn to 200 when dev is up
+            if counter != 1: #TODO: turn to 200 when finsishd
                 screen.blit(controls,(-80,0))
             else:
                 stage += 1
